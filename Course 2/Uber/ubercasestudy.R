@@ -1,9 +1,6 @@
 #loading required libraries
-library(dplyr)
-library(ggplot2)
-library(lubridate)
-library(ggthemes)
-library(stringr)
+pkgs <- c("dplyr", "ggplot2", "lubridate", "ggthemes", "stringr")
+lapply(pkgs, require, character.only = T)
 
 #reading in the data
 uber<- read.csv("Course 2/Uber/Uber Request Data.csv")
@@ -53,7 +50,7 @@ uber<- bind_rows(uber.drop.complete, uber.drop.missing)
 #checking if the conversion went through properly
 str(uber)
 
-uber$Drop.day<- format(uber$Drop.timestamp, "%d")
+uber$Drop.day<- format(uber$Drop.timestamp, "%d %B")
 uber$drop.time<- format(uber$Drop.timestamp, "%H")
 
 #plotting Status of all requests
@@ -77,8 +74,10 @@ plot2<- ggplot(uber, aes(Status, group = Pickup.point)) +
 
 #how does status vary by time of day
 
-#plotting demand versus supply for cars at different times
+#plotting demand versus supply for cars at airport
+
 dd.time<- uber %>%
+  filter()
   group_by(request.time, Status) %>%
   summarise(n=n()) %>%
   mutate(rel.freq = 100 * n/sum(n)) 
@@ -110,37 +109,96 @@ plot4<- ggplot(dd.time.origin) +
 
 plot4
 
-#no. of requests made at various hours of the day from various pickup points
-requests<- uber %>%
-  group_by(request.time, Pickup.point) %>%
-  summarise(count= n())
-
-plot5<-ggplot(requests, aes(fill=Pickup.point, y=count, x=request.time)) + 
-  geom_bar(position="dodge", stat="identity")+ 
-  scale_fill_brewer(palette="Paired") +
-  theme_minimal() +
-  labs(title= "Requests made by Hour of Day",x= "Hour of the Day", y = "Requests Made", fill = "Request Origin") + 
-  theme(legend.position = "bottom")
-
+#demand versus supply at airport
 #does this show any variation by day?
-#no. of requests made at various hours of the day from various pickup points
-request.day<- uber %>%
-  group_by(request.time, Pickup.point, Request.day) %>%
-  summarise(count= n())
+dd.airport<- uber %>%
+  filter(Pickup.point == "Airport") %>%
+  group_by(request.time, Request.day) %>%
+  summarise(demand= n())%>%
+  rename(day= Request.day, time= request.time)
 
-plot6<- ggplot(request.day, aes(fill=Pickup.point, y=count, x=request.time)) + 
-  geom_bar(position="dodge", stat="identity")+ 
-  facet_grid(Request.day~.) +
+ss.airport<- uber %>%
+  filter(Pickup.point == "City" & !is.na(drop.time)) %>%
+  group_by(drop.time, Drop.day) %>%
+  summarise(supply= n()) %>%
+  rename(day= Drop.day, time= drop.time)
+
+airport.daily <- full_join(dd.airport, ss.airport, by= c("day", "time"))
+airport<- airport.daily %>%
+  group_by(time) %>%
+  summarise(demand = sum(demand, na.rm = T), supply = sum(supply, na.rm = T))
+  
+plot5<- ggplot(data = airport) +
+  geom_path(mapping= aes(x= time, y = demand, group= 1, color = "demand"), size = 2) +
+  geom_path(mapping= aes(x= time, y = supply, group = 1, color = "supply"), size = 2)+ 
   scale_fill_brewer(palette="Paired") +
   theme_minimal() +
-  labs(title= "Day-wise Variation in Requests made by Hour of Day",x= "Hour of the Day", y = "Requests Made", fill = "Request Origin") + 
+  labs(title= "Demand versus Supply at Airports",x= "Hour of the Day", y = "Demand/Supply") + 
   theme(legend.position = "bottom")
+
+plot6<- ggplot(data = airport.daily[airport.daily$day != "16 July",]) +
+  geom_path(mapping= aes(x= time, y = demand, group= 1, color = "demand"), size = 1) +
+  geom_path(mapping= aes(x= time, y = supply, group = 1, color = "supply"), size = 1)+ 
+  facet_grid(day~.)+
+  scale_fill_brewer(palette="Paired") +
+  theme_minimal() +
+  labs(title= "Day-wise Variation in Demand/Supply at Airports",x= "Hour of the Day", y = "Requests Made", fill = "Request Origin") + 
+  theme(legend.position = "bottom")
+
+
+#demand versus supply at city
+dd.city<- uber %>%
+  filter(Pickup.point == "City") %>%
+  group_by(request.time, Request.day) %>%
+  summarise(demand= n())%>%
+  rename(day= Request.day, time= request.time)
+
+ss.city<- uber %>%
+  filter(Pickup.point == "Airport" & !is.na(drop.time)) %>%
+  group_by(drop.time, Drop.day) %>%
+  summarise(supply= n()) %>%
+  rename(day= Drop.day, time= drop.time)
+
+city.daily <- full_join(dd.city, ss.city, by= c("day", "time"))
+city<- city.daily %>%
+  group_by(time) %>%
+  summarise(demand = sum(demand, na.rm = T), supply = sum(supply, na.rm = T))
+
+plot7<- ggplot(data = city) +
+  geom_path(mapping= aes(x= time, y = demand, group= 1, color = "demand"), size = 2) +
+  geom_path(mapping= aes(x= time, y = supply, group = 1, color = "supply"), size = 2)+ 
+  scale_fill_brewer(palette="Paired") +
+  theme_minimal() +
+  labs(title= "Demand versus Supply in City",x= "Hour of the Day", y = "Demand/Supply") + 
+  theme(legend.position = "bottom")
+
+#does City DD/SS show any variation by day?
+plot8<- ggplot(data = city.daily[city.daily$day != "16 July",]) +
+  geom_path(mapping= aes(x= time, y = demand, group= 1, color = "demand"), size = 1) +
+  geom_path(mapping= aes(x= time, y = supply, group = 1, color = "supply"), size = 1)+ 
+  facet_grid(day~.)+
+  scale_fill_brewer(palette="Paired") +
+  theme_minimal() +
+  labs(title= "Day-wise Variation in Demand/Supply in City",x= "Hour of the Day", y = "Requests Made", fill = "Request Origin") + 
+  theme(legend.position = "bottom")
+plot8
 
 #saving the plots
+#plots<- c(plot1, plot2, plot3, plot4, plot5, plot6, plot7, plot8)
+#folder<- "D:/PGDDS/PGDDS-assignments/Course 2/Uber/"
+
+#for (i in 1:8)
+#{
+#  ggsave(paste0(folder, "plot", i, ".png"), plot= paste0("plot", i), device = png)
+#}
+
+#ggsave(paste(folder, plots[i], sep=''), plots[i])
+
 ggsave("Course 2/Uber/plot1.png", plot1)
 ggsave("Course 2/Uber/plot2.png", plot2)
 ggsave("Course 2/Uber/plot3.png", plot3)
 ggsave("Course 2/Uber/plot4.png", plot4)
 ggsave("Course 2/Uber/plot5.png", plot5)
-ggsave("Course 2/Uber/plot6.png", plot6)
-
+ggsave("Course 2/Uber/plot6.png", plot6, width = 5, height = 4)
+ggsave("Course 2/Uber/plot7.png", plot7)
+ggsave("Course 2/Uber/plot8.png", plot8, width = 5, height = 4)
