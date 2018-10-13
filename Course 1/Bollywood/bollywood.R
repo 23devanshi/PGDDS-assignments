@@ -1,8 +1,7 @@
  
 #	Import the Bollywood data set in Rstudio in a variable named bollywood
 
-  setwd("D:/PGDDS/Course 1")
-  bollywood <- read.csv("bollywood.csv")
+  bollywood <- read.csv("Course 1/Bollywood/bollywood.csv")
   View(bollywood)
 
 
