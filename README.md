@@ -36,15 +36,15 @@ The goal of the assignment was to understand the factors on which the pricing of
 
 ### [HR Analytics- Employee Attrition](https://github.com/23devanshi/PGDDS-assignments/tree/main/Course%203/HR%20Analytics)
 A large company experiences attrition amounting to 15% of its workforce every year. Costs associated with hiring and training new talent, as well as the delay experienced in projects makes this situation less than ideal. For the company, it is important to know what changes they should make to the workplace to curb attrition.
-#### Lnguages: R
+#### Languages: R
 
 ## Course 4- Predictive Analytics- II
 Model selection and advanced regression, Support vector machines, Decision trees & Time series
 
 ### Handwritten Digit Recognition
 Using MNIST data, correctly classify handwriiten digits based on the pixel values given as features.
-#### Lnguages: R
+#### Languages: R
 
 ### Retail Giant Sales Prediction
 Help a Retail giant predict the future sales volume of retail goods using time series forecasting so that it can plan the production and logistics better
-#### Lnguages: R
+#### Languages: R
