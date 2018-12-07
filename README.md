@@ -6,6 +6,7 @@ This course covered the languages of data science and data preparation.
 
 ### [Investment Case Study](https://github.com/23devanshi/PGDDS-assignments/tree/master/Course%201/Investmentcasestudy)
 Using data from crunchbase.com, Sparkfunds(an asset management company) wants make investment in a few companies. The goal of this analysis was to identify global trends in investment to make effctive decisions.
+
 **Languages: R**
 
 ### SQL Assignment
