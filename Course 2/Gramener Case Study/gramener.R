@@ -16,6 +16,7 @@ length(unique(loan$member_id))
 #removing these variables before proceeding with further analysis
 loan<- loan[, colSums(is.na(loan)) != nrow(loan)]
 
+
 #Considering only the Charged off and Fully paid Statuses of loan
 #i.e. removing rows where loan status is current
 loan<- loan[loan$loan_status != "Current",]
