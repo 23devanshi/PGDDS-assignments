@@ -41,7 +41,7 @@ A large company experiences attrition amounting to 15% of its workforce every ye
 ### Course 4- Predictive Analytics- II
 Model selection and advanced regression, Support vector machines, Decision trees & Time series
 
-#### Handwritten Digit Recognition
+#### [Handwritten Digit Recognition](https://github.com/23devanshi/PGDDS-assignments/tree/main/Course%204/Handwritten%20Digit%20Cl)
 Using MNIST data, correctly classify handwriiten digits based on the pixel values given as features.  
 **Languages: R**
 
