@@ -45,6 +45,12 @@ Model selection and advanced regression, Support vector machines, Decision trees
 Using MNIST data, correctly classify handwriiten digits based on the pixel values given as features.  
 **Languages: R**
 
-#### Retail Giant Sales Prediction
+#### [Retail Giant Sales Prediction](https://github.com/23devanshi/PGDDS-assignments/tree/main/Course%204/Retail-Giant%20Sales%20Forecasting)
 Help a Retail giant predict the future sales volume of retail goods using time series forecasting so that it can plan the production and logistics better.  
 **Languages: R**
+
+### Course 5- Big Data Analytics
+
+#### Data Ingestion & Processing Assignment
+Analysed detailed trip-level data provided by the New York City Taxi & Limousine Commission (TLC). 
+**Languages: Hive**
