@@ -52,5 +52,5 @@ Help a Retail giant predict the future sales volume of retail goods using time s
 ### Course 5- Big Data Analytics
 
 #### Data Ingestion & Processing Assignment
-Analysed detailed trip-level data provided by the New York City Taxi & Limousine Commission (TLC). 
+Analysed detailed trip-level data provided by the New York City Taxi & Limousine Commission (TLC). <br />
 **Languages: Hive**
