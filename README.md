@@ -51,6 +51,10 @@ Help a Retail giant predict the future sales volume of retail goods using time s
 
 ### Course 5- Big Data Analytics
 
-#### Data Ingestion & Processing Assignment
+#### [Data Ingestion & Processing Assignment](https://github.com/23devanshi/PGDDS-assignments/tree/main/Course%205/DataIngestion)
 Analysed detailed trip-level data provided by the New York City Taxi & Limousine Commission (TLC). <br />
 **Languages: Hive**
+
+#### NYC Parking Tickets: An Exploratory Analysis
+Performed exploartory data analysis on data for parking tickets collected by the NYC Police Department. <br/>
+**Languages: SparkR 
