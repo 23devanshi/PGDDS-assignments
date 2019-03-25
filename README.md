@@ -55,6 +55,6 @@ Help a Retail giant predict the future sales volume of retail goods using time s
 Analysed detailed trip-level data provided by the New York City Taxi & Limousine Commission (TLC). <br />
 **Languages: Hive**
 
-#### NYC Parking Tickets: An Exploratory Analysis
+#### [NYC Parking Tickets: An Exploratory Analysis](https://github.com/23devanshi/PGDDS-assignments/tree/main/Course%205/NYC%20Parking%20Case%20Study)
 Performed exploartory data analysis on data for parking tickets collected by the NYC Police Department. <br/>
-**Languages: SparkR 
+**Languages: SparkR**
